@@ -1,0 +1,8 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["suggestion"],
+  "properties": {
+    "suggestion": {"type": "string", "minLength": 1, "maxLength": 400}
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "email-03",
+  "thread_id": "email-03",
+  "from": "marcus.webb@example.com",
+  "from_name": "Marcus Webb",
+  "subject": "Sunset sailing for our anniversary",
+  "body": "Could you arrange a sunset sailing charter for our anniversary, for 4 of us, tomorrow evening if possible?",
+  "received_at": "2026-09-11T10:02:00+00:00",
+  "category": "leisure",
+  "guest_name": "Marcus Webb",
+  "room_number": "214"
+}

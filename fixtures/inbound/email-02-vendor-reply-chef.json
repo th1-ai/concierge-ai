@@ -1,0 +1,9 @@
+{
+  "id": "email-02",
+  "thread_id": "REQ-1001-vendor",
+  "from": "chef@example.com",
+  "from_name": "Chef Ines Duarte",
+  "subject": "Re: Request for Saturday evening — REQ-1001",
+  "body": "Delighted to help. Five-course coastal tasting menu, 20:00 service, arriving 18:00 to set up. The fish course will carry the whole table for your pescatarian guest, not sit there as a substitution. Looking forward to it.",
+  "received_at": "2026-09-10T15:40:00+00:00"
+}

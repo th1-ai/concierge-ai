@@ -1,0 +1,13 @@
+[
+  {
+    "id": "wa-01",
+    "chat_id": "wa-camille-305",
+    "from_number": "+33 6 98 00 07 12",
+    "from_name": "Camille Petit",
+    "text": "Bonjour, pourriez-vous organiser un violoncelliste pour une soirée anniversaire privée, pas une performance publique, ce vendredi soir ? Merci.",
+    "sent_at": "2026-09-11T11:05:00+00:00",
+    "category": "occasion",
+    "guest_name": "Camille Petit",
+    "room_number": "305"
+  }
+]

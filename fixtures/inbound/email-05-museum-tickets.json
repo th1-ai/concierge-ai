@@ -1,0 +1,12 @@
+{
+  "id": "email-05",
+  "thread_id": "email-05",
+  "from": "camille.petit@example.com",
+  "from_name": "Camille Petit",
+  "subject": "Museum tickets for tomorrow",
+  "body": "Could you get us tickets for the Example Museum tomorrow morning? Table of 2, nothing fancy.",
+  "received_at": "2026-09-11T07:55:00+00:00",
+  "category": "tickets",
+  "guest_name": "Camille Petit",
+  "room_number": "305"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "email-04",
+  "thread_id": "email-04",
+  "from": "priya.shah@example.com",
+  "from_name": "Priya Shah",
+  "subject": "Airport pickup with 2 child seats",
+  "body": "We need an airport transfer at 14:35 for a party of 3, with 2 child seats, flight ZZ 1758.",
+  "received_at": "2026-09-11T08:20:00+00:00",
+  "category": "transport",
+  "guest_name": "Priya Shah",
+  "room_number": "119"
+}

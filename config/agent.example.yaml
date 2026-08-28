@@ -1,0 +1,72 @@
+# ---------------------------------------------------------------------------
+# agent.yaml - Concierge AI's own knobs. `make setup` copies this to
+# config/agent.yaml; edit that copy, this example stays as a clean reference.
+#
+# Concierge AI turns a guest's request (private chef, transfer, tickets,
+# music...) into a booked, chased and closed-out job. Every message it wants
+# to send - to the guest or to the vendor - waits in the review queue first.
+# See docs/how-it-works.md for the full loop.
+# ---------------------------------------------------------------------------
+
+# The guardrails that make the "book it, don't invent it" promise provable.
+rules:
+  # No vetted vendor matches -> escalate to a person instead of inventing a
+  # supplier. Turn this off to see the unvetted-fallback path instead (it
+  # still never sends anything without a human approval).
+  vendor_trusted_only: true
+
+  # Above this estimate, the guest signs off on the spend BEFORE the vendor
+  # is contacted (`awaiting_guest_budget`). Below it, or with this off, the
+  # vendor is drafted straight away.
+  budget_cap_eur: 500
+
+  # When the vendor confirms: on, both sides hear back (vendor ack, then the
+  # guest confirmation). Off, the reply is logged on the thread and a human
+  # has to close the loop themselves with `tools/request.py close-loop`.
+  confirm_both_sides: true
+
+# How hard, and how long, the agent chases an unanswered vendor before
+# handing it to a person. `tools/chase.py` is the sweep that acts on this.
+chase:
+  interval_hours: 24
+  max_follow_ups: 3
+
+# Guest-facing drafts are written in English first (deterministic templates),
+# then localized into the guest's detected language if it is not English.
+# A translation failure or timeout falls back to the English draft - it never
+# blocks a send and it never guesses at a fact, only at phrasing.
+translate:
+  enabled: true
+
+# Concierge AI never sends on its own - this documents the fact for
+# docs/how-it-works.md and tools/report.py. The real gate is `mode: shadow`
+# in config/hotel.yaml plus review.require_approval_for, both enforced by
+# core/review.py.
+autonomy: draft
+
+# Every recurring job this agent runs, with the exact command and cadence -
+# `make schedule ARGS="--all"` prints one ready-to-paste snippet per entry
+# (README section "Run it" shows the exact output; scheduler/crontab.example
+# is generated from this same block). `tools/run.py --watch` also polls on
+# `schedule.new_requests_seconds` (default 900) instead of the cron string
+# below, since a long-running process can't "wake up" on a cron expression.
+schedule:
+  new_requests:
+    command: tools/run.py --once
+    cadence: "*/15 * * * *"      # the main loop - new email + WhatsApp
+  chase:
+    command: tools/chase.py --once
+    cadence: "0 9 * * *"         # daily - nudge vendors who have gone quiet
+  dayof:
+    command: tools/request.py dayof-sweep
+    cadence: "0 7 * * *"         # daily - today's confirmed transport check-ins
+  coach:
+    command: tools/coach.py run
+    cadence: "0 6 * * 1"         # weekly - cluster edits, propose fixes (off unless coach.enabled)
+
+# The coach layer (Email Optimizer / Coach AI applies to this agent - see
+# workflows/85-coach-weekly.md). Off by default: it only ever reads resolved
+# escalations and proposes knowledge fixes, never sends anything, but it is
+# still your call whether to turn it on.
+coach:
+  enabled: false

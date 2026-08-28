@@ -1,0 +1,65 @@
+# ---------------------------------------------------------------------------
+# vendors.yaml - the vetted supplier book. `make setup` copies this to
+# config/vendors.yaml; edit that copy, this example stays as a clean
+# reference. Loaded the same way as hotel.yaml/agent.yaml
+# (core.config.load_yaml("vendors")), including ${VAR} interpolation.
+#
+# This file IS the "Trusted vendors only" guardrail: tools/engine.py's
+# match_vendor() can only ever return a supplier listed here. That is
+# deliberate - see docs/safety.md. Add your own suppliers' real contract
+# terms, lead times and blackout dates as extra keys; unknown keys are kept
+# and ignored by the matcher.
+# ---------------------------------------------------------------------------
+
+vendors:
+  - key: chef
+    name: "Chef Ines Duarte (vetted)"
+    channel: email
+    contact: chef@example.com
+    categories: [dining, chef, food, in_room_dining]
+    keywords: [chef, private chef, tasting, in-room dining, in room dining]
+    unit_label: per_cover      # total = unit_price_eur x party
+    unit_price_eur: 95
+
+  - key: transport
+    name: "Aurora Executive Cars"
+    channel: email
+    contact: transport@example.com
+    categories: [transport, transfer, transfers]
+    keywords: [transfer, airport, driver, car, taxi, pickup, pick-up, pick up]
+    unit_label: per_vehicle    # total = unit_price_eur + child_seats x fee
+    unit_price_eur: 85
+    child_seat_fee_eur: 15
+
+  - key: tickets
+    name: "Example City Tours desk"
+    channel: email
+    contact: tours@example.com
+    categories: [tickets, attraction]
+    keywords: [ticket, tickets, tour, museum, attraction, entry, entrance]
+    unit_label: per_person     # total = unit_price_eur x party
+    unit_price_eur: 37
+
+  - key: music
+    name: "Example Conservatory duo"
+    channel: email
+    contact: music@example.com
+    categories: [occasion, music, entertainment]
+    keywords: [cellist, violinist, string duo, pianist, musician, quartet]
+    unit_label: flat           # total = unit_price_eur, regardless of party
+    unit_price_eur: 220
+
+# Used ONLY when no vetted vendor above matches AND rules.vendor_trusted_only
+# is OFF in config/agent.yaml. Every draft built from a fallback says
+# "(unvetted)" in the vendor name so nobody mistakes it for a vetted booking.
+# Matched top to bottom; the last entry with an empty `keywords` list is the
+# catch-all and must stay last.
+unvetted_fallbacks:
+  - keywords: [sailing, boat, charter, yacht, catamaran, skipper]
+    name: "Example Bay Charters (unvetted)"
+    unit_label: per_person
+    unit_price_eur: 145
+  - keywords: []
+    name: "Unlisted supplier (unvetted)"
+    unit_label: per_person
+    unit_price_eur: 120

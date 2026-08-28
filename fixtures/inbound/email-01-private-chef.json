@@ -1,0 +1,12 @@
+{
+  "id": "email-01",
+  "thread_id": "email-01",
+  "from": "laila.novak@example.com",
+  "from_name": "Laila Novak",
+  "subject": "Private chef for our anniversary",
+  "body": "We would love a private chef dinner in the suite for 4 people on Saturday evening. One of us is pescatarian, please plan accordingly.",
+  "received_at": "2026-09-10T09:14:00+00:00",
+  "category": "dining",
+  "guest_name": "Laila Novak",
+  "room_number": "812"
+}

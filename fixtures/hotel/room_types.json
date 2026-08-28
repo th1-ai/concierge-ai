@@ -1,0 +1,6 @@
+[
+  {"id": "classic", "name": "Classic Double", "max_occupancy": 2, "count": 20, "rank": 1},
+  {"id": "superior", "name": "Superior Double", "max_occupancy": 2, "count": 12, "rank": 2},
+  {"id": "family", "name": "Family Room", "max_occupancy": 4, "count": 6, "rank": 3},
+  {"id": "suite", "name": "Suite", "max_occupancy": 2, "count": 4, "rank": 4}
+]
